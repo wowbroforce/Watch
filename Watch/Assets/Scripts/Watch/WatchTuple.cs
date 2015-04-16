@@ -39,8 +39,8 @@ public sealed class WatchTuple<T1, T2>
 	public override int GetHashCode ()
 	{
 		int hash = 17;
-		hash = hash * 23 + (_item1 == default(T1) ? 0 : item1.GetHashCode ());
-		hash = hash * 23 + (_item2 == default(T2) ? 0 : item2.GetHashCode ());
+		hash = hash * 23 + (_item1 == null ? 0 : item1.GetHashCode ());
+		hash = hash * 23 + (_item2 == null ? 0 : item2.GetHashCode ());
 		return hash;
 	}
 
@@ -66,9 +66,9 @@ public sealed class WatchTuple<T1, T2>
 		if (object.ReferenceEquals (a, null)) {
 			return object.ReferenceEquals (b, null);
 		}
-		if (a.item1 == default(T1) && b.item1 != default(T1))
+		if (a.item1 == null && b.item1 != null)
 			return false;
-		if (a.item2 == default(T2) && b.item2 != default(T2))
+		if (a.item2 == null && b.item2 != null)
 			return false;
 		return a.item1.Equals (b.item1) && a.item2.Equals (b.item2);
 	}
