@@ -1,27 +1,32 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 public class WatchEditorWindow : EditorWindow {
-    private WatchContext _context;
+	private WatchContext _context;
+	private Vector2 _scrollPosition;
 
-    [MenuItem("Window/Watch")]
-    private static void Init() {
-        var window = CreateInstance<WatchEditorWindow>();
-        window.Show();
-    }
+	[MenuItem("Window/Watch")]
+	private static void Init() {
 
-    private void OnEnable() {
-        _context = WatchContext.instance;
-    }
+		var window = CreateInstance<WatchEditorWindow>();
+		window.Show();
+	}
 
-    private void OnGUI() {
-        EditorGUILayout.BeginVertical();
-        _context.ForEach((key, value) => EditorGUILayout.LabelField(key, value));
-        EditorGUILayout.EndVertical();
-    }
+	private void OnEnable() {
+		_context = WatchContext.instance;
+	}
 
-    private void Update() {
-        if (EditorApplication.isPlaying && !EditorApplication.isPaused) {
-            Repaint();
-        }
-    }
+	private void OnGUI() {
+		EditorGUILayout.BeginVertical();
+		_scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+		_context.ForEach((key, value) => EditorGUILayout.LabelField(key, value));
+		EditorGUILayout.EndScrollView();
+		EditorGUILayout.EndVertical();
+	}
+
+	private void Update() {
+		if (EditorApplication.isPlaying && !EditorApplication.isPaused) {
+			Repaint();
+		}
+	}
 }
