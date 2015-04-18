@@ -8,10 +8,11 @@ public class WatchDemo : MonoBehaviour
     public float force = 10;
 
 	void Start() {
+        Watch.ShowFormat("info", "ballss count = {0}, force = {1}", balls.Length, force);
         balls.ToList().ForEach(r => r.AddForce(Random.insideUnitCircle * force, ForceMode2D.Impulse));
 	}
 
 	void Update() {
-        balls.ToList().ForEach(r => Watch.Log("velocity of " + r.gameObject.name, r.velocity.magnitude.ToString(CultureInfo.InvariantCulture)));
+        balls.ToList().ForEach(r => Watch.Show(r.gameObject.name, r.velocity.magnitude.ToString(CultureInfo.InvariantCulture)));
 	}
 }
